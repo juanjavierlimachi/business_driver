@@ -1,0 +1,142 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="controllerApp as cm">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Carrera de Agronomia</title>
+
+    <!-- Bootstrap CSS CDN -->
+    {% bootstrap_css %}
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <p style="text-align: center; color: white;font-size: small;">U.A.T.F <br>Carrera de Agronomia</p>
+            </div>
+
+            <ul class="list-unstyled components">
+                <!-- {% verbatim %}
+                    <p>{{ cm.username }}</p>
+                {% endverbatim %} -->
+                <p>Usuario: {{request.user}}</p>
+                <li>
+                    <a href="{% url 'dashboard' %}">Inicio</a>
+                </li>
+                <li>
+                    <a href="" onclick="callData('{% url 'users' %}')">Usuarios</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="" onclick="callData('{% url 'list-category' %}')">Categorias</a>
+                </li>
+                <li>
+                    <a href="#">Documentos</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info btn-sm" ng-click="cm.statusMenu()">
+                        <i class="fas fa-align-left"></i>
+                        <span ng-if="!cm.togleMenu">Ocultar Menú</span>
+                        <span ng-if="cm.togleMenu">Mostar Menú</span>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Mi Perfil
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" type="button" href="#" onclick="callData('{% url 'myperfil' %}')">Mis datos</a>
+                          <a class="dropdown-item" type="button" href="#" onclick="callData('/change-password/{{request.user.id}}')">Cambiar contraseña</a>
+                          <a class="dropdown-item" type="button" href="{% url 'close' %}">Salir del sistema</a>
+                        </div>
+                      </div>
+                    
+            </nav>
+            {# contenido de la pagina #}
+            <!--Messges de Toast-->
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                 <div class="alert alert-success"></div>
+                
+                <!-- <div class="toast-body">
+                    <div class="alert alert-success"></div>
+                </div> -->
+              </div>
+            <div class="x_content"></div>
+            <!--Modal-->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="{% static 'js/popper.min.js' %}" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    {% bootstrap_javascript jquery='full' %}
+    <!--AlguarJS--->
+    <script src="{% static 'js/angular.min.js' %}"></script>
+    <script src="{% static 'js/dashboard.component.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+        function callData(urls){
+            $.ajax({
+                type:'GET',
+                url:urls,
+                success:function(resp){
+                    $(".x_content").html(resp);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    {% bootstrap_css %}
+
+    <style>
+        footer {
+            background-color:#1A1A1A;
+            height: 50%;
+            color: white;
+            padding: 15px;
+            }
+
+            .main1 { 
+            display:flex;
+            margin:0 auto;
+            }
+
+            a img:hover {
+                color: #fff;
+        }
+    </style>
+    <title>Document</title>
+</head>
+    <body>
+        
+            <!-- <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark p-4">
+                  <h5 class="text-white h4">Collapsed content</h5>
+                  <span class="text-muted">Toggleable via the navbar brand.</span>
+                </div>
+              </div> -->
+              <header class="header">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="#">
+                <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+                Negocios Online
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categorias
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        
+                        {% for categoria in categorias %}
+                            <a class="dropdown-item" href="#">{{categoria.nombre_categoria|title}}</a>
+                        {% endfor %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Varios</a>
+                    </div>
+                </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+            <div class="col-md-5 p-lg-5 mx-auto my-5">
+              <h1 class="display-4 font-weight-normal">Punny headline</h1>
+              <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
+              <a class="btn btn-outline-success" href="#">Coming soon</a>
+            </div>
+            <div class="product-device shadow-sm d-none d-md-block"></div>
+            <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+        </div>
+
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+                <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                </div>
+                <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            </div>
+
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+
+        
+        <footer>
+            <div class="container">
+              <div class="row">
+                  <div class="col-xs-12 col-md-6 text-left">
+                      <h6 class="text-muted lead">CONTACTO:</h6>
+                      <h6 class="text-muted">
+                      Carrera 8h No. 166-71 Local 2<br>
+                      Santa Cruz de la Ronda.<br>
+                      Teléfonos: 3115988953 – 3112641818.<br>
+                      </h6>
+                  </div>
+          
+                  <div class="col-xs-12 col-md-6 text-right">
+                      <h6 class="text-muted lead">ENCUENTRANOS EN LAS REDES</h6>
+                      <div class="redes-footer">
+                        <a href="https://www.facebook.com/"><img src="imagenes/facebook-2.png"></a>
+                        <a href="https://twitter.com/"><img src="imagenes/twitter-2.png"></a>
+                        <a href="https://www.youtube.com/"><img src="imagenes/youtube-2.png"></a>
+                      </div>
+                  </div>
+              </div>
+              <div class="row"> 
+          
+                  <div class="col-md-12 text-right">
+                      <p class="text-muted small">Todos los derechos reservados.</p>
+                  </div>
+                  
+              </div>
+          
+              </div>
+            </div>  
+          </div>
+          </footer>
+        <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        {% bootstrap_javascript jquery='full' %}
+    </body>
+</html>
