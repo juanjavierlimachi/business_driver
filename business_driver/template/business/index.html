@@ -37,7 +37,7 @@
               </div> -->
               <header class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
                 Negocios Online
             </a>
@@ -48,14 +48,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="#">Contactos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Acerca</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Servicios</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Beneficios</a>
+              </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Categorias
@@ -70,9 +73,10 @@
                     </div>
                 </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <form class="form-inline my-2 my-lg-0" id="shear_form">
+                  {% csrf_token %}
+                  <input class="form-control mr-sm-2" id="search-input" name="name_tiendas" type="search" placeholder="Buscar Tiendas" aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
             </div>
         </nav>
@@ -82,44 +86,35 @@
             <div class="col-md-5 p-lg-5 mx-auto my-5">
               <h1 class="display-4 font-weight-normal">Punny headline</h1>
               <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
-              <a class="btn btn-outline-success" href="#">Coming soon</a>
+              
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'register_negocio' %}','!Registre su Negocio o Servicio¡')">
+                Launch static backdrop modal
+              </button>
             </div>
             <div class="product-device shadow-sm d-none d-md-block"></div>
             <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
         </div>
 
         <div class="card-deck">
+          
+          {% for n in negocios %}
             <div class="card">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <img class="card-img-top" src="/media/{{n.imagen}}" alt="Card image cap">
                 <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <h5 class="card-title">{{n.nombre_negocio}}</h5>
+                  <p class="card-text">This is a wider card with supporting text 
+                    below as a natural lead-in to additional content. This content is a little bit longer.
+                    <a href="site/{{n.slug}}" target="_blank" rel="noopener noreferrer"><span class="badge badge-pill badge-success">Visitar</span></a>
+                  </p>
                 </div>
                 <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                  <small class="text-muted">Ultima Act. {{n.fecha_mod|timesince}}</small>
                 </div>
             </div>
-            <div class="card">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                </div>
-                <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            </div>
+          {% endfor %}
+            
+            
+        </div>
 
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
@@ -134,7 +129,23 @@
               </li>
             </ul>
           </nav>
+        <!-- ventana modal del index -->
+          <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel"> </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <!--contenidos de la ventana modal-->
+                </div>
 
+              </div>
+            </div>
+          </div>
         
         <footer>
             <div class="container">
@@ -171,5 +182,49 @@
           </footer>
         <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         {% bootstrap_javascript jquery='full' %}
+        <script type="text/javascript">
+            function callData(urls,title){
+                $.ajax({
+                    type:'GET',
+                    url:urls,
+                    success:function(resp){
+                        $(".modal-title").html(title)
+                        $(".modal-body").html(resp);
+                    }
+                });
+            }
+          $(document).ready(Sheart);
+            function Sheart(){ 
+              var tbuscar=$("#search-input").attr('autocomplete','off');
+              tbuscar.keypress(buscarProducto);
+          }
+          function buscarProducto(){
+                $.ajax({
+                    type:'GET',
+                    url:'shear_tienda_view/',
+                    data:$("#search-input").serialize(),
+                    success:resultado,
+                    error:errores
+                });
+            }
+          $("#shear_form").on("submit",function(e){
+            e.preventDefault();
+            $.ajax({
+              type:"POST",
+              url:"shear_tienda_view/",
+              data:$("#search-input").serialize(),
+              success:resultado,
+              error:errores
+            });
+          });
+          function resultado(data){
+            $(".card-deck").fadeIn("slow");
+            console.log(data);
+            $(".card-deck").html(data);
+          }
+          function errores(){
+            console.log("Error");
+          }
+        </script>
     </body>
 </html>

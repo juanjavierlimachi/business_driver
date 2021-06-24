@@ -1,0 +1,49 @@
+{% load bootstrap4 %}
+<script type="text/javascript">
+  $('#demo-form2').submit(function(e){
+       e.preventDefault();
+       var datos=new FormData(this);
+       $.ajax({
+            type:'POST',
+            url:$(this).attr("action"),
+            data: datos,
+            contentType: false,
+            processData: false,
+           success: function(resp){
+               if(resp == '200'){
+                   window.location.href = "/"
+               }
+               else{
+                   $(".modal-body").html(resp);
+               }  
+           },
+           error: function (xhr, ajaxOptions, thrownError) {
+             alert("Error al enviar intente nuevamente gracias");
+           }
+       });
+   });
+</script> 
+<form action="{% url 'register_negocio' %}" id="demo-form2" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-12">
+        
+        <div class="row">
+          <div class="col-8 col-sm-6">
+            indicaciones
+          </div>
+          <div class="col-4 col-sm-6">
+            {% bootstrap_form form %}
+          </div>
+        </div>
+      </div>
+      </div>
+    
+
+    {% buttons %}
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    {% endbuttons %}
+</form>

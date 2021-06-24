@@ -20,7 +20,7 @@ def login(request):
             user = authenticate(username=username,password=password)
             if user is not None and user.is_staff:
                 do_login(request, user)
-                return redirect("/dashboard")
+                return redirect("/customers/dashboard")
             messages.error(request,'Error, Contactese con el administrador para resolver el problema gracias.')
             return redirect('/')
         else:

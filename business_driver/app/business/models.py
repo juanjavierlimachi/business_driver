@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.db.models.base import Model
+from django.db.models.deletion import CASCADE
 from django.db.models.fields import CharField
 from phone_field import PhoneField
 from django.utils.text import slugify
@@ -11,7 +12,7 @@ from django.contrib.auth.forms import User
 
 class Categoria(models.Model):
     """Model definition for Categoria  ."""
-    nombre_categoria = models.CharField('Categoria', max_length=100,unique=True)
+    nombre_categoria = models.CharField('Categoria', max_length=50,unique=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_mod = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(default = True)
@@ -35,13 +36,14 @@ class Negocio(models.Model):
     nombre_negocio = models.CharField('Nombre de tu negocio', max_length=50)
     categoria=models.ForeignKey(Categoria, on_delete = models.CASCADE)
     direccion = models.CharField('Dirección', max_length=50)
-    phone = PhoneField(null=False, blank=False, unique=True)
+    phone = models.PositiveIntegerField('Num. de Celular',unique=True)
     pais = models.CharField('País', max_length=30)
     ciudad = models.CharField('Ciudad', max_length=50)
     mision = models.TextField('Misión', blank=True, null=True)
     vision = models.TextField('Visión', blank=True, null=True)
     imagen = models.ImageField('Imagen de portada', upload_to='img_negocios', blank=True, null=True, help_text="Adjunte una imagen del producto")
     slug = models.SlugField(editable=False, unique=True)
+    #user = models.ForeignKey(User,on_delete=CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_mod = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(default = True)
@@ -103,7 +105,7 @@ class Catalogo(models.Model):
 class ClientePerfil(models.Model):
     """Model definition for ClientePerfil."""
     usuario = models.OneToOneField(User, unique=True, related_name='perfil', on_delete = models.CASCADE)
-    celular = PhoneField(null=False, blank=False, unique=True)
+    celular = models.PositiveIntegerField(unique=True)
     # TODO: Define fields here
 
     class Meta:
@@ -114,6 +116,6 @@ class ClientePerfil(models.Model):
 
     def __str__(self):
         """Unicode representation of ClientePerfil."""
-        return self.celular
+        return "%s"%(self.celular)
 
 
