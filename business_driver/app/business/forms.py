@@ -1,6 +1,7 @@
 # encoding:utf-8
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from .models import *
 from .forms import *
@@ -38,4 +39,11 @@ class NegocioForm(forms.ModelForm):
 
     class Meta:
         model = Negocio
-        exclude = ('estado','mision','vision',)
+        exclude = ('estado','mision','vision','pais','imagen','user',)
+    
+    def clean_nombre_negocio(self):
+        negocio = self.cleaned_data['nombre_negocio']
+        if Negocio.objects.filter(nombre_negocio = negocio).exists():
+            raise forms.ValidationError('El nombre deve ser más descriptivo')
+        return negocio
+            

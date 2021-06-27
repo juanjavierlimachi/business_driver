@@ -1,0 +1,35 @@
+{% load bootstrap4 %}
+<script type="text/javascript">
+    $('#demo-form2').submit(function(e){
+         e.preventDefault();
+         var datos=new FormData(this);
+         $.ajax({
+                type:'POST',
+                url:$(this).attr("action"),
+                data:$(this).serialize(),
+                success: function(resp){
+                    if(resp == '200'){
+                        window.location.href = "/"
+                    }
+                    else{
+                        $(".modal-body").html(resp);
+                    }  
+                },
+             error: function (xhr, ajaxOptions, thrownError) {
+               alert("Error al enviar intente nuevamente gracias");
+             }
+         });
+     });
+  </script> 
+
+<form method="POST" action="{% url 'registerUser' %}" role="form" class="form-horizontal" id="demo-form2" data-parsley-validate >
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_form user_perfil %}
+    {% buttons %}
+       <div class="modal-footer">
+           <button type="submit" class="btn btn-primary">Registrar</button>
+           <button type="button" class="btn btn-secondary btn-ms" data-dismiss="modal">Cancelar</button>
+       </div>
+   {% endbuttons %}
+ </form>

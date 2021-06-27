@@ -5,6 +5,7 @@ from django.forms import ModelForm
 from .models import *
 from .forms import *
 from django.contrib.auth.forms import User
+
 class UserForm(UserCreationForm):
 	username = forms.CharField(max_length=40,help_text="El texto no deve contener espacios Ejem. juan",label="Nombre de Usuario")
 	password1 = forms.CharField(help_text="Recuerde este dato para proporcionar al personal", label="Contraseña")

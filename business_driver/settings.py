@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'phone_field',#libreria para registrar numeros de telefono pip install django-phone-field
     'business_driver.app.inicio',
     'business_driver.app.business',
+    'business_driver.app.user',
 ]
 
 MIDDLEWARE = [
@@ -102,12 +103,18 @@ DATABASES = {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]"""
-
+#personalizaciones login
+#AUTH_USER_MODEL = 'model.CustomUser'
+AUTH_USER_MODEL = 'user.CustomUser'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'business_driver.app.user.backends.EmailBackend'
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 

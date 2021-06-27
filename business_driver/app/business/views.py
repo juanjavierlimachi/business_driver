@@ -1,8 +1,11 @@
 #encoding:utf-8
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView, View, FormView, DeleteView
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from .forms import *
 from .models import *
 # Create your views here.
@@ -31,48 +34,44 @@ class IndexView(TemplateView):
 
 
 class RegisterNegocio(View):
+    
     def get(self, request):
-        #user_form = UserForm(instance=request.user)
-        form = NegocioForm()
+        Usuario=Negocio(user=request.user)
+        form = NegocioForm(instance=Usuario)
         return render(request, 'business/RegisterNegocio.html', {
             'form': form
         })
 
     def post(self, request):
-        form = NegocioForm(request.POST, request.FILES)
+        Usuario=Negocio(user=request.user)
+        print(request.user)
+        form = NegocioForm(request.POST, request.FILES,instance=Usuario)
         if form.is_valid():
-            form.save()
-            #messages.success(request, _('Your profile was successfully updated!'))
-            return HttpResponse("200")
+            formulario = form.save(commit=False)
+            formulario.user_id = request.user.id
+            formulario.save()
+            return JsonResponse({
+                    'slug':formulario.slug,
+                    'status':200
+                })
         else:
             return render(request, 'business/RegisterNegocio.html', {
                 'form': form
             })
-
-        #messages.error(request, _('Please correct the error below.'))
-
-
-""" class RegisterNegocio(FormView):
-    form_class = NegocioForm
-    template_name = "business/RegisterNegocio.html"
-    success_url = '/'
-    def form_valid(self, form):
-        form.save()
-        return super(RegisterNegocio, self).form_valid(form) """
-
 
 
 class SiteWeb(DetailView):
     model = Negocio
     template_name = "business/SiteWeb_negocio.html"
 
-
+@csrf_exempt
 def shearTiendaView(request):
     if request.method=="POST":
+        print("post")
         texto=request.POST["name_tiendas"]
         busqueda=(
             Q(nombre_negocio__icontains=texto) |
-            Q(phone_creacion__icontains=texto) |
+            Q(descripcion__icontains=texto) |
             Q(id__icontains=texto)
         )
         resultados=Negocio.objects.filter(busqueda, estado=True).distinct()
@@ -81,8 +80,8 @@ def shearTiendaView(request):
         texto=request.GET["name_tiendas"]
         busqueda=(
             Q(nombre_negocio__icontains=texto) |
-            Q(phone__icontains=texto) |
+            Q(descripcion__icontains=texto) |
             Q(id__icontains=texto)
         )
         resultados=Negocio.objects.filter(busqueda, estado=True).distinct()
-        return render(request,'business/shearTiendaView.html',{'negocios':resultados}) 
+        return render(request,'business/shearTiendaView.html',{'negocios':resultados})

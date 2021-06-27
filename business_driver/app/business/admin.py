@@ -4,4 +4,4 @@ from .models import *
 admin.site.register(Categoria)
 admin.site.register(Negocio)
 admin.site.register(Catalogo)
-admin.site.register(ClientePerfil)
+#admin.site.register(ClientePerfil)

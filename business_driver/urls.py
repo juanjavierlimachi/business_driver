@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('customers/', include('business_driver.app.inicio.urls')),
     path('', include('business_driver.app.business.urls')),
+    path('', include('business_driver.app.user.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

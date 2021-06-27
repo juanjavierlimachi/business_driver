@@ -5,12 +5,11 @@
 __pycache__/
 __pycache__
 local_settings.py
-db.sqlite3
 .env
 media
-*.sqlite3
-*.sqlite3
+__pycache__/
 **/__pycache__/**
+db.sqlite3
 # Other unwanted stuff
 .idea
 .DS_Store

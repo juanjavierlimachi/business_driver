@@ -10,11 +10,13 @@
             contentType: false,
             processData: false,
            success: function(resp){
-               if(resp == '200'){
-                   window.location.href = "/"
+               if(resp.status == '200'){
+                   window.location.href = "site/"+resp.slug
                }
                else{
+                  
                    $(".modal-body").html(resp);
+                   
                }  
            },
            error: function (xhr, ajaxOptions, thrownError) {
