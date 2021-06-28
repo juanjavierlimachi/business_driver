@@ -47,13 +47,9 @@
                     Perfil
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        
-                        <a class="dropdown-item" href="#">Cerrar sesión</a>
-                        
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Varios</a>
+                        <a class="dropdown-item" href="#">Cerrar Sesión</a>
                     </div>
-                </li>
+                  </li>
                 {% else %}
                  Negocios Online
                 {% endif %}
@@ -65,31 +61,50 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contactos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Acerca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Servicios</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Beneficios</a>
-              </li>
-                <li class="nav-item dropdown">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Contáctanos</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Acerca</a>
+                  </li>
+                  <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Categorias
+                    Servicios
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         
-                        {% for categoria in categorias %}
+                        {% for servicio in servicios %}
                             <a class="dropdown-item" href="#">{{categoria.nombre_categoria|title}}</a>
                         {% endfor %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Varios</a>
                     </div>
                 </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Categorias
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          
+                          {% for categoria in categorias %}
+                              <a class="dropdown-item" href="#">{{categoria.nombre_categoria|title}}</a>
+                          {% endfor %}
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Varios</a>
+                      </div>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Mas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                       
+                        <a class="dropdown-item" href="#">Mis sitios Web</a>
+                        
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Varios</a>
+                    </div>
+                  </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0" id="shear_form" method="post">
                   <input class="form-control mr-sm-2" id="search-input" name="name_tiendas" type="search" placeholder="Buscar Tiendas" aria-label="Search" required>
@@ -137,7 +152,7 @@
                   </p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">Ultima Act. {{n.fecha_mod|timesince}}</small>
+                  <small class="text-muted">Creado: {{n.fecha_mod|timesince}}</small>
                 </div>
             </div>
           {% endfor %}
@@ -224,7 +239,7 @@
             }
           $(document).ready(Sheart);
             function Sheart(){ 
-              var tbuscar=$("#search-input").attr('autocomplete','off');
+              var tbuscar=$("#search-input");
               tbuscar.keypress(buscarProducto);
           }
           function buscarProducto(){
@@ -247,9 +262,9 @@
             });
           });
           function resultado(data){
-            $(".card-deck").fadeIn("slow");
+            $(".card-deck").slideDown(1000);
             console.log(data);
-            $(".card-deck").html(data);
+            $(".card-deck").html(data).slideDown(5000);
           }
           function errores(){
             console.log("Error");

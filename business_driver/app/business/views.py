@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .forms import *
 from .models import *
+from business_driver.app.user.models import Servicio
 # Create your views here.
 
 class IndexView(TemplateView):
@@ -19,7 +20,8 @@ class IndexView(TemplateView):
     #si quiero enviar otra consulta
         dic = {
             'categorias':Categoria.objects.all().order_by('-id'),
-            'negocios':Negocio.objects.filter(estado = True).order_by('-id')
+            'negocios':Negocio.objects.filter(estado = True).order_by('-id'),
+            'servicios':Servicio.objects.filter(estado = True).order_by('-id')
             #'usuarios':self.model.objects.all().count()
         }
         return dic

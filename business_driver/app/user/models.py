@@ -23,3 +23,22 @@ class ClientePerfil(models.Model):
     def __str__(self):
         """Unicode representation of ClientePerfil."""
         return "%s"%(self.celular)
+
+
+class Servicio(models.Model):
+    """Model definition for Servicio  ."""
+    nombre_servicio = models.CharField('Nombre del servicio', max_length=50,unique=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_mod = models.DateTimeField(auto_now=True)
+    estado = models.BooleanField(default = True)
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for Servicio   ."""
+
+        verbose_name = 'Categoria  '
+        verbose_name_plural = 'Servicio'
+    
+    def __str__(self):
+        """Unicode representation of Servicio ."""
+        return self.nombre_servicio

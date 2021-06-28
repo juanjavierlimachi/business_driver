@@ -19,7 +19,7 @@ class RegisterForm(UserCreationForm):
         user.username=self.cleaned_data.get("email")
         if commit:
             user.is_active = True
-            user.is_staff = True
+            user.is_staff = False
             user.is_superuser = False
             user.save()
         return user 
