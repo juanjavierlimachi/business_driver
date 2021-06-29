@@ -87,3 +87,7 @@ def shearTiendaView(request):
         )
         resultados=Negocio.objects.filter(busqueda, estado=True).distinct()
         return render(request,'business/shearTiendaView.html',{'negocios':resultados})
+
+def negocios_por_categorias(request, id_categoria):
+    negocios = Negocio.objects.filter(estado = True, categoria = id_categoria)
+    return render(request, 'business/negocios_por_categorias.html',{'negocios':negocios})
