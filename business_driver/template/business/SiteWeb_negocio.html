@@ -4,23 +4,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{% static 'img/icon.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
 
-    <title>Album example for Bootstrap</title>
+    <title>{{object.nombre_negocio|title}}</title>
 
     <!-- Bootstrap core CSS -->
         {% bootstrap_css %}
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/album.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/toast.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tamanios.css' %}">
   </head>
 
   <body>
 
-    <header>
+    <header class="header">
       <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
           <div class="row">
@@ -41,7 +44,8 @@
       </div>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
+          <a href="#" class="navbar-brand d-flex align-items-center" data-toggle="modal" data-target="#staticBackdrop"
+             onclick="ventana_modal('registrar_cliente_orden/{{object.id}}','Por favor ingrese sus datos')"><span id="compras_id">{{compra}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
             <strong><a href="javascript: history.go(-1)">Volver</a></strong>
           </a>
@@ -52,167 +56,80 @@
       </div>
     </header>
 
-    <main role="main">
+    <body role="main">
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Album example</h1>
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+          <h1 class="jumbotron-heading">{{object.nombre_negocio|title}}</h1>
+          <p class="lead text-muted">{{object.descripcion}}.</p>
           <p>
-            <a href="#" class="btn btn-primary my-2">Hablar por WatsApp</a>
+            
+          {% if es_propietario %}
+            <button type="button" class="btn btn-success" 
+            data-toggle="modal" data-target="#staticBackdrop" 
+            onclick="ventana_modal('../register_contenido/{{object.id}}','!Registre su Producto o Servicio¡')">
+            Registrar Contenido</button>
+          {% endif %}
+              
+            
             <a href="#" class="btn btn-secondary my-2">Compartir en Facebook</a>
             <a href="#" class="btn btn-secondary my-2">Compartir WatsApp</a>
           </p>
         </div>
       </section>
 
-      <div class="album py-5 bg-light">
-        <div class="container">
+      
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
 
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+          <div class="card-deck">
+          
+            {% for c in  catalogos %}
+              <div class="card">
+                  <img class="card-img-top img-fluid" src="/media/{{c.imagen}}" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{c.nombre_negocio}}</h5>
+                    <p class="card-text">{{c.descripcion}}</p>
+                    <a href="#" onclick="ventana_modal('{% url 'pedidos' c.id %}','! Pedidos ¡')" data-toggle="modal" data-target="#staticBackdrop" rel="noopener noreferrer"><span class="badge badge-pill badge-success">Realizar Pedido</span></a>
+                    <form action="realizar_pedido/{{c.id}}" id="form_pedido" method="post">
+                      {% csrf_token %}
+                      <label for="cant_id">Cantidad</label>
+                      <input type="number" name="cantidad" value="1" id="cantidad_id" required>
+                      <button type="submit" id="pedidos_re">Realizar Pedido</button>
+                    </form>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
+                  <div class="card-footer">
+                    <small class="text-muted">Publicado: {{c.fecha_mod|timesince}}</small>
                   </div>
-                </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                    </div>
-                    <small class="text-muted">9 mins</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="alert alert-success"></div>
+           
+           <!-- <div class="toast-body">
+               <div class="alert alert-success"></div>
+           </div> -->
+         </div>    
+          
+    </body>
+    
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"> </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <!--contenidos de la ventana modal-->
+          </div>
+
         </div>
       </div>
-
-    </main>
-
+    </div>
     <footer class="text-muted">
       <div class="container">
         <p class="float-right">
@@ -231,5 +148,62 @@
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      function ventana_modal(urls,title){
+            $.ajax({
+                type:'GET',
+                url:urls,
+                success:function(resp){
+                    $(".modal-title").html(title)
+                    $(".modal-body").html(resp);
+                }
+            });
+        }
+        $('.card .card-body #form_pedido').submit(function(e){
+          e.preventDefault();
+          $.ajax({
+                type:'POST',
+                url:$(this).attr("action"),
+                data:$(this).serialize(),
+                success:function(resp){
+                  $("#compras_id").html(resp);
+                }
+            });
+        })
+        /* function conpras(){
+          $.ajax({
+                type:'get',
+                url:'registrar_cliente_orden/' + '{{object.id}}',
+                success:function(resp){
+                  $(".modal-title").html(title)
+                    $(".modal-body").html(resp);
+                }
+            });
+        } */
+        function venta_cliente(){
+          var productos="";
+          $.ajax({
+                type:'get',
+                url:'realizar_pedidos/' + '{{object.id}}',
+                success:function(resp){
+                  var total_gasto = 0;
+                  //console.log(resp.compras);
+                  for (var i = 0 in resp.compras) {
+                    productos = productos + " *Producto:* \n";
+                    productos = productos + resp.compras[i].nombre+"\n Cantidad:";
+                    productos = productos + resp.compras[i].cantidad+"\n "+" Precio Uni:";
+                    productos = productos + resp.compras[i].precio_uni+"\n"+" Costo:";
+                    productos = productos + resp.compras[i].total+"\n";
+
+                    total_gasto = total_gasto + parseFloat(resp.compras[i].total);
+                  }
+                  var ruta = "https://api.whatsapp.com/send?phone=591"+resp.celular_negocio+"&text="+productos+" \n "+ " *TOTAL A PAGAR: Bs.* "+ total_gasto;
+                  window.open(ruta, "Diseño Web", "width=600, height=400");
+                }
+                
+            });
+          
+        }
+    </script>
   </body>
 </html>

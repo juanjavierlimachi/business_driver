@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import ModelForm, widgets
 from .models import *
 from .forms import *
 from django.contrib.auth.forms import User
@@ -44,6 +44,21 @@ class NegocioForm(forms.ModelForm):
     def clean_nombre_negocio(self):
         negocio = self.cleaned_data['nombre_negocio']
         if Negocio.objects.filter(nombre_negocio = negocio).exists():
-            raise forms.ValidationError('El nombre deve ser más descriptivo')
+            raise forms.ValidationError('Escriba un nombre más descriptivo')
         return negocio
+
+class CatalogoForm(forms.ModelForm):
+    class Meta:
+        model = Catalogo
+        exclude = ('estado','negocio',)
             
+
+class PedidosForm(forms.ModelForm):
+    """FORMNAME definition."""
+    #colores = (("Rojo", "Rojo"),("Azul", "Azul"),("Amarillo", "Amarillo"),("Verde", "Verde"),)
+    #tam = (("Grande", "Grande"),("Pequeño", "Pequeño"),("Cualquiera", "Cualquiera"),("Consultar", "Consultar"),)
+    #color = forms.ChoiceField(choices=colores)
+    #tamanio = forms.ChoiceField(choices=tam)
+    class Meta:
+        model = Pedido
+        exclude = ('estado','catalogo',)

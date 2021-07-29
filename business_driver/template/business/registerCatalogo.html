@@ -11,7 +11,19 @@
             processData: false,
            success: function(resp){
                if(resp.status == '200'){
-                   window.location.href = 'web-'+resp.slug
+                    $(".toast .alert-success").html("Bien registraste un items");
+                    $('.toast').toast({delay: 3000});
+                    $('.toast').toast('show');
+                    
+                    $(".modal .close").click();
+                    window.location.href = './web-{{dato.slug}}';
+                    /* $.ajax({
+                      type:'GET',
+                      url:'./web-{{dato.slug}}',
+                      success:function(resp){
+                        $(".card-deck").html(resp);
+                      }
+                    }) */
                }
                else{
                   
@@ -25,11 +37,9 @@
        });
    });
 </script> 
-<form action="{% url 'register_negocio' %}" id="demo-form2" method="post" enctype="multipart/form-data">
+<form action="../register_contenido/{{dato.id}}" id="demo-form2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-      
     {% bootstrap_form form %}
-    
     {% buttons %}
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

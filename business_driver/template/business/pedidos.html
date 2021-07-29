@@ -1,17 +1,17 @@
 {% load bootstrap4 %}
 <script type="text/javascript">
-  $('#demo-form2').submit(function(e){
+  $('#demo-form3').submit(function(e){
        e.preventDefault();
-       var datos=new FormData(this);
        $.ajax({
             type:'POST',
             url:$(this).attr("action"),
-            data: datos,
-            contentType: false,
-            processData: false,
+            data: $(this).serialize(),
            success: function(resp){
-               if(resp.status == '200'){
-                   window.location.href = 'web-'+resp.slug
+               if(resp == '200'){
+                $(".toast .alert-success").html("Bien!!! Realizaste tu pedido correctamente");
+                $('.toast').toast({delay: 4000});
+                $('.toast').toast('show');
+                $(".modal .close").click();
                }
                else{
                   
@@ -25,15 +25,15 @@
        });
    });
 </script> 
-<form action="{% url 'register_negocio' %}" id="demo-form2" method="post" enctype="multipart/form-data">
+<form action="{% url 'pedidos' catalogo.id %}" id="demo-form3" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-      
+    <label for="">Tu pedido: </label>{{catalogo.nombre_producto|upper}}
     {% bootstrap_form form %}
     
     {% buttons %}
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Registrar</button>
+          <button type="submit" class="btn btn-primary">Confirmar</button>
         </div>
     {% endbuttons %}
 </form>
