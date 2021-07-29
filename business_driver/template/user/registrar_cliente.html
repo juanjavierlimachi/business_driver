@@ -2,17 +2,16 @@
 <script type="text/javascript">
     $('#demo-form2').submit(function(e){
          e.preventDefault();
-         var datos=new FormData(this);
          $.ajax({
                 type:'POST',
                 url:$(this).attr("action"),
                 data:$(this).serialize(),
                 success: function(resp){
                     if(resp == '200'){
-                        window.location.href = "/"
+                        $(".modal .close").click();
                     }
                     else{
-                        $(".modal-body").html(resp);
+                        $(".modal-title").html(resp);
                     }  
                 },
              error: function (xhr, ajaxOptions, thrownError) {
@@ -22,18 +21,12 @@
      });
   </script> 
 
-{% if si_aviso %}
-    Para realizar este pedido debes tener una cuenta, ingresa <a href="#" data-toggle="modal" data-target="#staticBackdrop" onclick="FormLogin('{% url 'login' %}','! Iniciar Sesion ¡')">haciedno click aqui</a>. 
-    Caso contrario debes registrarte en este formulario.  
-{% endif %}
-    
-<form method="POST" action="{% url 'registerUser' %}" role="form" class="form-horizontal" id="demo-form2" data-parsley-validate >
+<form method="POST" action="registrar_cliente_orden/{{id_negocio}}" role="form" class="form-horizontal" id="demo-form2" data-parsley-validate >
     {% csrf_token %}
     {% bootstrap_form form %}
-    {% bootstrap_form user_perfil %}
     {% buttons %}
        <div class="modal-footer">
-           <button type="submit" class="btn btn-primary">Registrar</button>
+           <button type="submit" class="btn btn-primary">Aceptar</button>
            <button type="button" class="btn btn-secondary btn-ms" data-dismiss="modal">Cancelar</button>
        </div>
    {% endbuttons %}

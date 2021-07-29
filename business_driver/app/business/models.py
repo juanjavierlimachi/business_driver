@@ -6,6 +6,7 @@ from django.db.models.fields import CharField
 from django.utils.text import slugify
 from django.contrib.auth.forms import User
 from business_driver.app.user.models import CustomUser
+from business_driver.app.user.models import *
 #from phone_field import PhoneField
 
 # Create your models here.
@@ -34,7 +35,7 @@ class Negocio(models.Model):
     categoria=models.ForeignKey(Categoria, on_delete = models.CASCADE)
     descripcion = models.TextField(help_text='Escriba una descripción de que trata.?')
     direccion = models.CharField('Dirección ', max_length=50,help_text='Ejem. Av. Panamericana #590 Zona Sur')
-    #phone = models.PositiveIntegerField('Num. de Celular',unique=True)
+    celular = models.PositiveIntegerField('Num. de Celular')
     pais = models.CharField('País', max_length=30, blank=True, null=True)
     ciudad = models.CharField('Lugar', max_length=150, help_text='Pais - Ciudad')
     mision = models.TextField('Misión', blank=True, null=True)
@@ -60,7 +61,7 @@ class Negocio(models.Model):
 
     def save(self, *args, **kwargs):
         #guardo el atributo slug + el id para cada negocio
-        self.slug = slugify(self.nombre_negocio+""+str(self.pk))
+        self.slug = slugify(self.nombre_negocio)
         super(Negocio, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -73,7 +74,8 @@ class Negocio(models.Model):
 class Catalogo(models.Model):
     """Model definition for Catalogo."""
     nombre_producto = models.CharField('Nombre del Producto', max_length=50)
-    descripción = models.TextField()
+    descripcion = models.TextField()
+    precio = models.FloatField()
     imagen = models.ImageField('Archivo', upload_to='img_productos', blank=True, null=True, help_text="Adjunte una imagen del producto")
     negocio=models.ForeignKey(Negocio, on_delete = models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -91,14 +93,51 @@ class Catalogo(models.Model):
         """Unicode representation of Catalogo."""
         return self.nombre_producto
 
-    def save(self):
-        """Save method for Catalogo."""
-        pass
-
-    def get_absolute_url(self):
-        """Return absolute url for Catalogo."""
-        return ('')
-
     # TODO: Define custom methods here
 
+class Orden(models.Model):
+    """Model definition for Orden."""
+    cliente = models.ForeignKey(Cliente, on_delete = models.CASCADE)
+    negocio = models.ForeignKey(Negocio, on_delete = models.CASCADE)
 
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_mod = models.DateTimeField(auto_now=True)
+    estado = models.BooleanField(default = True)
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for Orden."""
+
+        verbose_name = 'Orden'
+        verbose_name_plural = 'Ordens'
+
+    def __str__(self):
+        return "%s id %s"%(self.fecha_creacion, self.pk)
+
+
+
+class Pedido(models.Model):
+    """Model definition for Catalogo."""
+
+    orden=models.ForeignKey(Orden, on_delete = models.CASCADE)
+    producto=models.ForeignKey(Catalogo, on_delete=CASCADE)
+    cantidad = models.PositiveIntegerField()
+    precio_unitario = models.FloatField()
+    total = models.FloatField()
+
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_mod = models.DateTimeField(auto_now=True)
+    estado = models.BooleanField(default = True)
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for Pedido."""
+
+        verbose_name = 'Pedido'
+        verbose_name_plural = 'Pedidos'
+
+    def __str__(self):
+        """Unicode representation of Pedido."""
+        return "%s, orden # %s"%(self.producto.nombre_producto, self.orden)
+
+    # TODO: Define custom methods here

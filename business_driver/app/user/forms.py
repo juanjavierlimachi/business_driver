@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.forms import User
+from django.forms.models import ModelForm
 from .models import *
 
 class RegisterForm(UserCreationForm):
@@ -29,9 +30,8 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Email:')
 
 
-class perfil_form(forms.ModelForm):
-    """FORMNAME definition."""
-    celular = forms.IntegerField(label='Celular (Whatsapp)')
+class ClienteForm(ModelForm):
+    
     class Meta:
-        model = ClientePerfil
-        fields = ['celular']
+        model = Cliente
+        exclude = ('lugar',)
