@@ -1,0 +1,18 @@
+{% load bootstrap4 %}
+<style>
+    #id_descripcion{
+        height: 100px;
+    }
+</style>
+<form id="demo-form2" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      
+    {% bootstrap_form form %}
+    
+    {% buttons %}
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button> 
+        </div>
+    {% endbuttons %}
+</form>

@@ -10,11 +10,22 @@
     box-shadow: 0 0 10px rgb(53, 226, 189);/*añade efectos de sombra alrededor del marco de un elemento*/
     
   }
+  .text_elipsis{
+    white-space: nowrap; text-overflow: ellipsis; overflow: hidden;
+  }
+      @media (min-width: 376px){
+        .card-deck.card.card-body.card-title{
+          font-size: xx-small;
+          color: white;
+        }
+      }
  /*  cuando la pantalla sea mayor de 576px  */ 
       @media (min-width: 576px){
         .card-deck{ 
           flex-direction: column;
+          margin: auto;
         }
+        
       }
       /*  cuando la pantalla sea mayor de 768px  */ 
       @media (min-width: 768px){ 
@@ -24,6 +35,7 @@
         }
         .card-deck .card{
             min-width: 300px;
+            margin: auto;
         }
 
       }
@@ -32,6 +44,7 @@
           display: none;
         }
       }
+      
   footer {
       background-color:#1A1A1A;
       height: 50%;
@@ -46,4 +59,7 @@
 
       a img:hover {
           color: #fff;
+  }
+  .sinSubrayado{
+    text-decoration: none;
   }

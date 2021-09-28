@@ -38,7 +38,7 @@ class LoginView(auth_views.LoginView):
             
             return HttpResponse('200')
         else:
-            return HttpResponse("no existe")
+            return HttpResponse("Error los datos ingresados no son válidos, intetente nuevamente gracias.")
 
 
 class RegisterUser(CreateView):
@@ -67,3 +67,6 @@ class RegisterUser(CreateView):
                 return HttpResponse("200")
         else:
             return render(request, 'user/registerUser.html', {'form': form, 'user_perfil':user_perfil})
+def logaut(request):
+    logout(request)
+    return redirect("/")

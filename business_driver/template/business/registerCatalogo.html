@@ -12,7 +12,7 @@
            success: function(resp){
                if(resp.status == '200'){
                     $(".toast .alert-success").html("Bien registraste un items");
-                    $('.toast').toast({delay: 3000});
+                    $('.toast').toast({delay: 4000});
                     $('.toast').toast('show');
                     
                     $(".modal .close").click();
@@ -36,7 +36,12 @@
            }
        });
    });
-</script> 
+</script>
+<style>
+  #id_descripcion{
+        height: 100px;
+    }
+</style>
 <form action="../register_contenido/{{dato.id}}" id="demo-form2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
