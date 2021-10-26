@@ -25,12 +25,29 @@ class Servicio(models.Model):
     def __str__(self):
         """Unicode representation of Servicio ."""
         return self.nombre_servicio
-    
+
+class ClientePerfil(models.Model):
+    """Model del usuario perfil."""
+    usuario = models.OneToOneField(CustomUser, unique=True, related_name='perfil', on_delete = models.CASCADE)
+    celular = models.PositiveIntegerField(unique=True)
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for ClientePerfil."""
+
+        verbose_name = 'ClientePerfil'
+        verbose_name_plural = 'ClientePerfils'
+
+    def __str__(self):
+        """Unicode representation of ClientePerfil."""
+        return "%s"%(self.celular)
+
+
 class Cliente(models.Model):
     """Model definition for Cliente."""
     nombre = models.CharField('Nombre completo', max_length=50)
-    celular = models.PositiveIntegerField()
-    email = models.EmailField('Correo Eléctronico', max_length=100)
+    celular = models.PositiveIntegerField('Celular (WhatsApp)')
+    email = models.EmailField('Correo Electrónico', max_length=100)
 
     lugar = models.CharField('lugar',max_length=50,blank=True, null=True)
     # TODO: Define fields here
@@ -44,4 +61,7 @@ class Cliente(models.Model):
     def __str__(self):
         """Unicode representation of Cliente."""
         return self.nombre
+
+
+
 

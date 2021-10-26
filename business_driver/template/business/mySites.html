@@ -1,15 +1,33 @@
+{% load static %}
 {% for n in negocios %}
-    <div class="card">
-        <img class="card-img-top img-fluid" src="/media/{{n.imagen}}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{n.nombre_negocio}}</h5>
-            <p class="card-text">This is a wider card with supporting text 
-            below as a natural lead-in to additional content. This content is a little bit longer.
-            <a href="web-{{n.slug}}" rel="noopener noreferrer"><span class="badge badge-pill badge-success">Visitar</span></a>
-            </p>
+<div class="card" style="max-width: 300px; margin: auto; margin-bottom: 20px;">
+  <a href="web-{{n.slug}}" class="sinSubrayado" rel="noopener noreferrer">       
+    {% if n.imagen %}
+    <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="/media/{{n.imagen}}" style="max-height: 230px; height: 230px;" alt="Card image cap">
+    {% else %}
+    <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="{% static 'img/localbusines.jpg' %}" style="max-height: 230px; height: 230px;" alt="Card image cap">
+    {% endif %}
+      
+      
+      <div class="card-body">
+        <h5 class="card-title">{{n.nombre_negocio|title}}</h5>
+        <p class="card-text text_elipsis">{{n.descripcion}}
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Publicado: {{n.fecha_mod|timesince}}</small>
+      </div>
+      </a>
+  </div>
+{% empty %}
+        <div class="card" style="max-width: 300px; margin: auto; margin-bottom: 20px;">
+            <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="{% static 'img/localbusines.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">No hay Registros</h5>
+                <p class="card-text">No se encontro ningú registro</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">No Disponible</small>
+            </div>
         </div>
-        <div class="card-footer">
-            <small class="text-muted">Creado: {{n.fecha_mod|timesince}}</small>
-        </div>
-    </div>
 {% endfor %}

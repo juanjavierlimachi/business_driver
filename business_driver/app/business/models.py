@@ -29,24 +29,43 @@ class Categoria(models.Model):
         """Unicode representation of Categoria ."""
         return self.nombre_categoria
 
+
+class Cuidad(models.Model):
+    """Model definition for Cuidad."""
+    cuidad = models.CharField('Ciudad', max_length=50)
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for Cuidad."""
+
+        verbose_name = 'Cuidad'
+        verbose_name_plural = 'Cuidads'
+
+    def __str__(self):
+        """Unicode representation of Cuidad."""
+        return self.cuidad
+
+
 class Negocio(models.Model):
     """Model definition for Negocio."""
     nombre_negocio = models.CharField('Nombre de tu negocio', max_length=50)
     categoria=models.ForeignKey(Categoria, on_delete = models.CASCADE)
     descripcion = models.TextField(help_text='Escriba una descripción de que trata.?')
     direccion = models.CharField('Dirección ', max_length=50,help_text='Ejem. Av. Panamericana #590 Zona Sur')
-    celular = models.PositiveIntegerField('Num. de Celular')
+    celular = models.PositiveIntegerField('Num. de Celular (WhatsApp)')
     pais = models.CharField('País', max_length=30, blank=True, null=True)
-    ciudad = models.CharField('Lugar', max_length=150, help_text='Pais - Ciudad')
+    lugar = models.ForeignKey(Cuidad, on_delete=models.CASCADE)
     mision = models.TextField('Misión', blank=True, null=True)
     vision = models.TextField('Visión', blank=True, null=True)
-    imagen = models.ImageField('Imagen de portada', upload_to='img_negocios', blank=True, null=True, help_text="Adjunte una imagen del producto")
+    imagen = models.ImageField('Imagen de portada', upload_to='img_negocios', blank=True, null=True, help_text="Opcional")
     slug = models.SlugField(editable=False, unique=True)
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     #user = models.ForeignKey(User,on_delete=CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_mod = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(default = True)
+    plan_basic = models.BooleanField(default = False)
+    plan_premiun = models.BooleanField(default = False)
     # TODO: Define fields here
 
     class Meta:
@@ -112,7 +131,7 @@ class Orden(models.Model):
         verbose_name_plural = 'Ordens'
 
     def __str__(self):
-        return "%s id %s"%(self.fecha_creacion, self.pk)
+        return "%s id %s"%(self.cliente.nombre, self.pk)
 
 
 

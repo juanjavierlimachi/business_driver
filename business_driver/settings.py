@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',#libreria para integrar bootstrap  django-bootstrap4==2.2.0
-    'phone_field',#libreria para registrar numeros de telefono pip install django-phone-field
     'business_driver.app.inicio',
     'business_driver.app.business',
     'business_driver.app.user',
+    'import_export',#libreria para importar, exportar arch. excel, csv, desde el admin
 ]
 
 MIDDLEWARE = [

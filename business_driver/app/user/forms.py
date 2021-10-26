@@ -35,3 +35,10 @@ class ClienteForm(ModelForm):
     class Meta:
         model = Cliente
         exclude = ('lugar',)
+
+class perfil_form(forms.ModelForm):
+    """FORMNAME definition."""
+    celular = forms.IntegerField(label='Celular (Whatsapp)')
+    class Meta:
+        model = ClientePerfil
+        fields = ['celular']
