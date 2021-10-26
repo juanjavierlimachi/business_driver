@@ -46,8 +46,8 @@ class ClientePerfil(models.Model):
 class Cliente(models.Model):
     """Model definition for Cliente."""
     nombre = models.CharField('Nombre completo', max_length=50)
-    celular = models.PositiveIntegerField()
-    email = models.EmailField('Correo Eléctronico', max_length=100)
+    celular = models.PositiveIntegerField('Celular (WhatsApp)')
+    email = models.EmailField('Correo Electrónico', max_length=100)
 
     lugar = models.CharField('lugar',max_length=50,blank=True, null=True)
     # TODO: Define fields here

@@ -1,1 +1,143 @@
-<h1>planes</h1>
+{% load bootstrap4 %}
+<style>
+    
+    /*cuando la pantalla tengo un maximo de*/
+        .card_planes{
+            display: flex;
+            align-items:center
+        }
+      @media (max-width: 1000px){
+        .card_planes{
+            display: flex;
+            display: inline;
+            
+        }
+
+        .card_planes .separacion{
+            width: 100%;
+        }
+        @media (min-width:300px) {
+            .card_planes .separacion{
+                max-width: 25rem;
+                margin: auto;
+            }
+        }
+      }
+      .card-body{
+          margin-top: -20px;
+      }
+      .separacion .card-body{
+          height: 450px;
+      }
+      #comprar_plan{
+          width: 100%;
+      }
+</style>
+    <script>
+    /* $(document).ready(stylo_precio);
+        function stylo_precio(){ 
+            $("#home").hide();
+            $("#premiun").hide();
+        }
+        $('#home1').hover(function(){
+            $("#home1").hide(5000);
+            $("#home").show(5000);
+        }); */
+    </script>
+<div class="card_planes">
+    <div class="card border-success mb-3 separacion" style="max-width: 18rem; height: 560px;">
+        <div class="card-header bg-transparent border-success">Plan Basic</div>
+        <div class="card-body text-success">
+            <p class="card-text">
+                <li>
+                    Registro de negocios ilimitados.
+                </li>
+                <li>
+                    Registro de productos imilitados.
+                </li>
+                <li>
+                    Pedidos sin comiciones ilimitados.
+                </li>
+                <li>
+                    Butones para compartir en WhatsApp, Facebook.
+                </li>
+                <li>
+                    Button para contactos.
+                </li>
+                <li>
+                    Consultas sobre el sistema.
+                </li>
+            </p>
+        </div>
+        <div class="card-footer bg-transparent border-success">GRATIS</div>
+    </div>
+    
+    <div class="card border-success mb-3 separacion" style="max-width: 18rem;">
+        <div class="card-header bg-transparent border-success">Plan Home</div>
+        <div class="card-body text-success">
+            <p class="card-text">
+                <li>
+                    Registro de negocios ilimitados.
+                </li>
+                <li>
+                    Registro de productos imilitados.
+                </li>
+                <li>
+                    Pedidos sin comiciones ilimitados.
+                </li>
+                <li>
+                    Botones para compartir en WhatsApp, Facebook.
+                </li>
+                <li>
+                    Button para contactos.
+                </li>
+                <li>
+                    Actualización de tu sitio web y productos de tu catalogo.
+                </li>
+                <li>
+                    Soporte y Consultas sobre su tienda virtual.
+                </li>
+                
+            </p>
+        </div>
+        <div class="card-footer bg-transparent border-success" id="home1">50 bs/Mes. - 550 bs/Anual
+            <a type="submit" class="btn btn-outline-success btn-sm" id="comprar_plan" href="https://api.whatsapp.com/send?phone=59179436914&text=Quiero acceder al Plan Home" target="_blank">Comprar</a>
+        </div>
+<!--         <div class="card-footer bg-transparent border-success" id="home">Acceder al Plan</div>
+ -->    </div>
+    
+    <div class="card border-success mb-3 separacion" style="max-width: 18rem;">
+        <div class="card-header bg-transparent border-success">Plan Premiun</div>
+        <div class="card-body text-success">
+            <p class="card-text">
+                <li>
+                    Registro de negocios ilimitados.
+                </li>
+                <li>
+                    Registro de productos imilitados.
+                </li>
+                <li>
+                    Pedidos sin comiciones ilimitados.
+                </li>
+                <li>
+                    Botones para compartir en WhatsApp, Facebook.
+                </li>
+                <li>
+                    Boton para contactarte.
+                </li>
+                <li>
+                   Soporte y Consultas, te ayudamos a crear tu cátalogo digital.
+                </li>
+                <li>
+                    Actualización de tu sitio web y productos de tu catálogo.
+                </li>
+                <li>
+                    Realizamos Marketing a mas de 2.000 usuarios sobre tu tienda virtual.
+                </li>
+            </p>
+        </div>
+        <div class="card-footer bg-transparent border-success" id="premiun1">80 bs/Mes - 900 bs/Anual
+            <a type="submit" class="btn btn-outline-success btn-sm" id="comprar_plan" href="https://api.whatsapp.com/send?phone=59179436914&text=Quiero acceder al Plan Premiun" target="_blank">Comprar</a>
+        </div>
+    </div>
+</div>

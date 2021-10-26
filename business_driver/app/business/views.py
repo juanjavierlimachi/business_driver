@@ -207,6 +207,7 @@ def pedidosCliente(request, id_producto):
         return JsonResponse(dic)
 
 def registrar_cliente(request, id_negocio):
+    #en esta funcion el cliente registra sus datos para confirmar su pedido
     negocio = Negocio.objects.get(id = int(id_negocio))
 
     if len(request.session['compra'])<=0:
@@ -228,7 +229,7 @@ def registrar_cliente(request, id_negocio):
             #hacer el pedido
             realizar_pedidos(request,id_orden.pk, id_negocio)
             dic = {'status':200,'negocio':negocio.celular,'cliente':id_orden.cliente.nombre.title(),'id_orden':id_orden.pk}
-            
+            request.session['compra'] = []#cuando el cliente confirma sus datos reiniciamos la session del carrito de compras
             return JsonResponse(dic)
     else:
         forms = ClienteForm()
@@ -322,16 +323,24 @@ class Veneficios(TemplateView):
     
 def darBajaProducto(request, id_producto):
     producto = Catalogo.objects.get(id = int(id_producto))
-    resp = ""
+    
     if producto.estado:
         producto.estado = False
         producto.save()
-        resp = "No"
+        dic = {
+            'status_produc:':'No disponible',
+            'button_status':'Agotado',
+            'status':'No'
+        }
     else:
         producto.estado = True
         producto.save()
-        resp = "Si"
-    return HttpResponse(resp)
+        dic = {
+            'status_produc':'Disponible',
+            'button_status':'Agregar al carrito',
+            'status':'Si'
+        }
+    return JsonResponse(dic)
 
 def EditPageWeb(request, slug):
     negocio = Negocio.objects.get(slug=slug)
@@ -343,3 +352,19 @@ def EditPageWeb(request, slug):
     else:
         form=NegocioForm(instance=negocio)
         return render(request,'business/EditPageWeb.html',{'form':form})
+
+def verPedidosWeb(request, id_negocio):
+    ordenes = Orden.objects.filter(negocio = int(id_negocio)).order_by('-id')
+    
+    return render(request,'business/verPedidosWeb.html',{'ordenes':ordenes})
+
+def listaPedidos(request, id_orden):
+    total_pago = 0
+    try:
+        orden = Orden.objects.get(id = int(id_orden))
+        pedidos = Pedido.objects.filter(orden_id = int(id_orden))
+        for pedido in pedidos:
+            total_pago = total_pago + pedido.total
+    except orden.DoesNotExist:
+        return HttpResponse('El pedido no existe')
+    return render(request,'business/listaPedidos.html',{'orden':orden,'pedidos':pedidos,'total_pago':total_pago})

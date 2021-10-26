@@ -38,7 +38,7 @@ class NegocioForm(forms.ModelForm):
     """FORMNAME definition."""
     class Meta:
         model = Negocio
-        exclude = ('estado','mision','vision','pais','user',)
+        exclude = ('estado','mision','vision','pais','user','plan_basic','plan_premiun',)
     
     def clean_nombre_negocio(self):
         negocio = self.cleaned_data['nombre_negocio']

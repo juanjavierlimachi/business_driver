@@ -19,12 +19,19 @@
           color: white;
         }
       }
+      /*cuando la pantalla tengo un maximo de*/
+      @media (max-width: 400px){
+        .header .navbar .navbar-brand{
+          font-size: 15px;
+        }
+      }
  /*  cuando la pantalla sea mayor de 576px  */ 
       @media (min-width: 576px){
         .card-deck{ 
           flex-direction: column;
           margin: auto;
         }
+       
         
       }
       /*  cuando la pantalla sea mayor de 768px  */ 

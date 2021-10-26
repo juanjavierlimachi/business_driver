@@ -10,17 +10,35 @@
     {% bootstrap_css %}
 
     <link rel="stylesheet" href="{% static 'css/tamanios.css' %}">
-    
+    <style>
+      /*Portada index*/
+    .imgfondoIndex{
+      background-image: url('static/img/busines3.jpeg');
+      background-size: cover;
+
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    .imgfondoIndex:before{
+      content: "";
+      width: 500%;
+      height: 100%;
+      margin-left: -690px;
+      position: absolute;
+      background-color: rgba(221, 221, 221, 0.986);
+      opacity: 0.5;
+    }
+    .imgfondoIndex div h1,p, button, a{
+      position: relative;
+    }
+    .modal-header{
+      background-color: #8ddfec;
+    }
+    </style>
     <title>Tiendas Online</title>
+    
 </head>
 <body>
-    
-        <!-- <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-4">
-              <h5 class="text-white h4">Collapsed content</h5>
-              <span class="text-muted">Toggleable via the navbar brand.</span>
-            </div>
-          </div> -->
   <header class="header">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">
@@ -99,13 +117,12 @@
     </nav>
   </header>
 
-  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light"
-    style="">
-    <img src="static/img/busines3.jpeg" style="background-size: cover; max-width: 90%;max-height: 90%; opacity: 0.5; position: relative; z-index: 200;" alt="">  
+  <div class="position-relative overflow-hidden p-md-5 m-md-3 text-center bg-light imgfondoIndex">
+    
     <div class="col-md-18 p-lg-18 mx-auto my-5">
         
         {% if request.user.is_authenticated %}
-        <h1 class="display-4 font-weight-normal">Bien Venido, {{request.user.first_name|title}}</h1>
+        <h1 class="display-4 font-weight-normal">Bienvenido: {{request.user.first_name|title}}</h1>
         {% else %}
         <h1 class="display-4 font-weight-normal">Tiendas Online</h1>
         {% endif %}
@@ -117,7 +134,7 @@
         
         
         {% if request.user.is_authenticated %}
-          <button type="button" class="btn btn-info my-2" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'register_negocio' %}','!Registre su Negocio¡')">
+          <button type="button" class="btn btn-info my-2" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'register_negocio' %}','!Registre su negocio y disfrute del servicio¡')">
             Crear nueva página web
           </button>
           
@@ -125,7 +142,7 @@
           <button type="button" class="btn btn-primary my-2" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'registerUser' %}','! Ingrese los datos correctamente ¡')">
             Crear cuenta gratis
           </button>
-          <button type="button" class="btn btn-success my-2" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'login' %}','! Iniciar Sesion ¡')">
+          <button type="button" class="btn btn-success my-2" data-toggle="modal" data-target="#staticBackdrop" onclick="callData('{% url 'login' %}','! Iniciar Sesión ¡')">
             Ingresar
           </button>
         {% endif %}
@@ -217,7 +234,7 @@
                   Dir. Av. Panamericana<br>
                   Teléfonos: 79436914<br>
                   Cochabamba - Bolivia<br>
-                  E-mail: <a href="mailto:sistemasuatf12345@gmail.com">codemarpotosi@gmail.com</a>
+                  E-mail: <a href="mailto:codemar.potosi@gmail.com">codemar.potosi@gmail.com</a>
                   </h6>
               </div>
       
@@ -228,7 +245,7 @@
                     <a href="https://twitter.com/" target="_blank"><img src="imagenes/twitter-2.png"></a>
                     <a href="https://www.youtube.com/" target="_blank"><img src="imagenes/youtube-2.png"></a>
                     <br>
-                    <p class="text-muted small">Todos los derechos reservados.</p>
+                    <p class="text-muted small">Sitio web creado por "CodeMar Potosí".</p>
                   </div>
               </div>
           </div>

@@ -19,7 +19,7 @@
     <link href="{% static 'css/album.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/toast.css' %}">
     <link rel="stylesheet" href="{% static 'css/tamanios.css' %}">
-
+    
     <style>
       .quantity {
         position: relative;
@@ -98,15 +98,37 @@
         color: white;
         background-color: black;
       }
+      .imgfondo{
+        background-image: url('media/{{object.imagen}}');
+        background-size: cover;
+        
+        background-repeat: no-repeat;
+        position: relative;
+      }
+      .imgfondo:before{
+        content: "";
+        width: 500%;
+        height: 100%;
+        margin-left: -690px;
+        position: absolute;
+        background-color: rgb(255, 250, 240);
+        opacity: 0.5;
+      }
+      .imgfondo div h1,p, button, a{
+        position: relative;
+      }
+      .modal-header{
+      background-color: #8ddfec;
+    }
     </style>
   </head>
 
   <body>
     <header class="header">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="web-{{object.slug}}">
+          <a class="navbar-brand text_elipsis" href="web-{{object.slug}}">
               <img src="{% static 'img/icon.png' %}" width="30" height="30" alt="">
-              {{object.nombre_negocio|title}}
+              {{object.nombre_negocio|upper}}
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -123,10 +145,12 @@
                     <!-- {% if object.nombre_negocio %}
                     <a class="dropdown-item" href="#" onclick="filter_categorias('{% url 'my_sites' object.id %}')">Editar la pagina web</a>
                     {% endif %} -->
-                    <a class="dropdown-item" href="#mis paginas web" onclick="filter_categorias('{% url 'my_sites' request.user.id %}')">Mis Páginas</a>
+                    <a class="dropdown-item" href="#mis-paginas-web" onclick="filter_categorias('{% url 'my_sites' request.user.id %}')">Mis Páginas Web</a>
                     
                     {% if es_propietario %}
                       <a class="dropdown-item" href="#EditarMiPaginaWeb" data-toggle="modal" data-target="#staticBackdrop" onclick="ventana_modal('edit_page_web/{{object.slug}}','Actualizar la Página web.')">Editar el sitio Web</a>
+                      <a class="dropdown-item" href="#mis-pedidos" onclick="filter_categorias('ver_pedidos_web/{{object.id}}')">Ver mís pedidos</a>
+                    
                     {% endif %}
                       
 
@@ -148,7 +172,7 @@
                     {% endfor %}
                   </div>
                   <div class="dropdown-divider"></div>
-                  <span class="dropdown-item" style="color: rgb(32, 58, 207);">Total a pagar :Bs. <span id="id_Total_pagos">{{total_pago}}</span></span>
+                  <span class="dropdown-item" style="color: rgb(32, 58, 207);">Total a pagar: Bs. <span id="id_Total_pagos">{{total_pago}}</span></span>
                   <!-- <a class="dropdown-item" href="" target="_blank">Revisar & Confirmar</a> -->
                     <a class="dropdown-item" href="#orden" data-toggle="modal" data-target="#staticBackdrop"
                     onclick="ventana_modal('registrar_cliente_orden/{{object.id}}','Por favor ingrese sus datos para continuar con su pedido.')">Confirmar Pedido</a>
@@ -166,15 +190,28 @@
                 <a class="nav-link" href="#editar">Editar</a>
             </li> -->
               </ul>
-              <!-- <form class="form-inline my-2 my-lg-0" id="shear_form" method="post">
-                <input class="form-control mr-sm-2" id="search-input" name="name_tiendas" type="search" placeholder="Buscar Tiendas" aria-label="Search" required>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-              </form> -->
+              
+              {% if request.user.is_authenticated and es_propietario %}
+                <form class="form-inline my-2 my-lg-0" id="shear_form" method="post">
+                  
+                  {% if object.plan_basic and object.plan_premiun %}
+                    <Label style="color: white;">Plan Premiun</Label>
+                    {% else %}
+                    
+                    {% if object.plan_basic %}
+                      <Label style="color: white;">Plan Basic</Label>
+                      {% else %}
+                      <Label style="color: white;">Plan Gratis</Label>
+                    {% endif %}
+                      
+                  {% endif %}
+                </form>
+              {% endif %}
+                
           </div>
       </nav>
   </header>
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light"
-    style="background-image: url('media/{{object.imagen}}');  background-size: cover; background-color: transparent;">
+    <div class="position-relative overflow-hidden p-md-5 m-md-3 text-center bg-light imgfondo">
       <div class="col-md-18 p-lg-18 mx-auto my-5">
         <h1 class="display-4 font-weight-normal">{{object.nombre_negocio|title}}</h1>
         <p class="lead font-weight-normal">{{object.descripcion}}</p>
@@ -198,8 +235,8 @@
   <div class="card-deck">
   
     {% for c in  catalogos %}
-      <div class="card" style="max-width: 300px; margin: auto; margin-bottom: 20px;">
-          <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="/media/{{c.imagen}}" style="max-height: 230px; height: 230px;" alt="Card image cap">
+      <div class="card" id="card_catalogo" style="max-width: 300px; margin: auto; margin-bottom: 20px;">
+          <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="/media/{{c.imagen}}" style="max-height: 230px; height: 230px; border-radius: 10px;" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{c.nombre_producto|title}}</h5>
             <p class="card-text">{{c.descripcion}}</p>
@@ -217,31 +254,31 @@
               {% if c.estado %}
                 <button type="submit" style="margin-top: 4px; margin-left: 9px;" class="btn btn-outline-success btn-sm" id="pedidos_re_{{c.id}}">Agregar al carrito</button>
               {% else %}
-                <button disabled style="margin-top: 4px; margin-left: 9px;" class="btn btn-outline-success btn-sm" id="pedidos_re_{{c.id}}">Agregar al carrito</button>
+                <button disabled style="margin-top: 4px; margin-left: 9px;" class="btn btn-outline-success btn-sm" id="pedidos_re_{{c.id}}">Agotado</button>
               {% endif %}
                 
             </form>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Disponible: 
+            <small class="text-muted">Estado
               {% if c.estado %}
-                <span id="dispo_{{c.id}}">Sí</span>
+                <span id="dispo_{{c.id}}" style="color: rgb(96, 233, 96);">Disponible</span>
                 {% else %}
-                <span id="dispo_{{c.id}}">No</span>
+                <span id="dispo_{{c.id}}" style="color: rgb(230, 92, 92);">No disponible</span>
               {% endif %}
                 
-                {% if request.user.is_authenticated and es_propietario %}
-                 <form method="get" style="max-width: 50px; float: right;">
-                    {% csrf_token %}
-                    
-                    {% if c.estado %}
-                      <input type="checkbox" name="dispo" id="" checked data-toggle="toggle" data-size="xs" onclick="darBaja('{{c.id}}')">
-                    {% else %}
-                      <input type="checkbox" name="dispo" id="" data-toggle="toggle" data-size="xs" onclick="darBaja('{{c.id}}')">
-                    {% endif %}
-                      
-                    
-                  </form> 
+                {% if object.plan_basic  %}
+                  {% if request.user.is_authenticated and es_propietario %}
+                    <form method="get" style="max-width: 50px; float: right;">
+                        {% csrf_token %}
+                        
+                        {% if c.estado %}
+                          <input type="checkbox" name="dispo" id="" checked data-toggle="toggle" data-size="xs" onclick="darBaja('{{c.id}}')">
+                        {% else %}
+                          <input type="checkbox" name="dispo" id="" data-toggle="toggle" data-size="xs" onclick="darBaja('{{c.id}}')">
+                        {% endif %}
+                      </form> 
+                  {% endif %}
                 {% endif %}
               </small>
           </div>
@@ -251,7 +288,7 @@
         <img class="card-img-top img-fluid img-responsive img-thumbnail img-rounded" src="static/img/localbusines.jpg" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">No hay Registros</h5>
-            <p class="card-text">No se encontro ningú registro</p>
+            <p class="card-text">No se encontro ningún registro</p>
         </div>
         <div class="card-footer">
             <small class="text-muted">No Disponible</small>
@@ -279,15 +316,12 @@
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="alert alert-success" style="background-color:#28a745; color: white;"></div>
      
-      <!-- <div class="toast-body">
-          <div class="alert alert-success"></div>
-      </div> -->
     </div>
     <footer>
       <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-6 text-left">
-                <h6 class="text-muted lead">CONTACTO:</h6>
+                <h6 class="text-muted lead">ENCUENTRANOS:</h6>
                 <h6 class="text-muted">
                 Dirección: {{object.direccion}}<br>
                 {{object.lugar|title}}<br>
@@ -330,13 +364,18 @@
           type:'GET',
           url:'darBajaProducto/'+id_producto,
           success:function(resp){
-            $('.text-muted #dispo_'+id_producto).html(resp);
-            if(resp == 'Si'){
+            $('.text-muted #dispo_'+id_producto).html(resp.status_produc);
+            if(resp.status == 'Si'){
+              
               $('#form_pedido #pedidos_re_'+id_producto).removeAttr('disabled');
+              $('.card #form_pedido #pedidos_re_'+id_producto).html(resp.button_status);
               //document.getElementById('pedidos_re_'+id_producto).disabled = true;
             }else{
               $('.card #form_pedido #pedidos_re_'+id_producto).attr('disabled','disabled');
+              //document.getElementById('pedidos_re_'+id_producto).html(resp.button_status);
               //document.getElementById('pedidos_re_'+id_producto).disabled = 'disabled';
+              //$('.text-muted #dispo_'+id_producto).html(resp.status_produc);
+              $('.card #form_pedido #pedidos_re_'+id_producto).html(resp.button_status);
             }
           }
         });

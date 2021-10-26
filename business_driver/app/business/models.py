@@ -64,6 +64,8 @@ class Negocio(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_mod = models.DateTimeField(auto_now=True)
     estado = models.BooleanField(default = True)
+    plan_basic = models.BooleanField(default = False)
+    plan_premiun = models.BooleanField(default = False)
     # TODO: Define fields here
 
     class Meta:
@@ -129,7 +131,7 @@ class Orden(models.Model):
         verbose_name_plural = 'Ordens'
 
     def __str__(self):
-        return "%s id %s"%(self.fecha_creacion, self.pk)
+        return "%s id %s"%(self.cliente.nombre, self.pk)
 
 
 

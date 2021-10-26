@@ -11,8 +11,9 @@
                     if(resp.status == '200'){
                         $(".modal .close").click();
 
-                        var ruta = "https://api.whatsapp.com/send?phone=591"+resp.negocio+"&text=Hola mi nombre es: "+resp.cliente+", realize el siguiente pedido: http://127.0.0.1:8000/p-"+resp.id_orden+" Gracias";
+                        var ruta = "https://api.whatsapp.com/send?phone=591"+resp.negocio+"&text=Hola mi nombre es: "+resp.cliente+", realize el siguiente pedido: https://da55-190-11-86-191.ngrok.io/p-"+resp.id_orden+" Registrado en ventas online";
                         window.open(ruta, "Diseño Web", "width=600, height=400");
+                        location.reload();
                     }
                     else{
                         //$(".modal-title").html(resp);
