@@ -148,7 +148,7 @@
                     <a class="dropdown-item" href="#mis-paginas-web" onclick="filter_categorias('{% url 'my_sites' request.user.id %}')">Mis Páginas Web</a>
                     
                     {% if es_propietario %}
-                      <a class="dropdown-item" href="#EditarMiPaginaWeb" data-toggle="modal" data-target="#staticBackdrop" onclick="ventana_modal('edit_page_web/{{object.slug}}','Actualizar la Página web.')">Editar el sitio Web</a>
+                      <!-- <a class="dropdown-item" href="#EditarMiPaginaWeb" data-toggle="modal" data-target="#staticBackdrop" onclick="ventana_modal('edit_page_web/{{object.slug}}','Actualizar la Página web.')">Editar el sitio Web</a> -->
                       <a class="dropdown-item" href="#mis-pedidos" onclick="filter_categorias('ver_pedidos_web/{{object.id}}')">Ver mís pedidos</a>
                     
                     {% endif %}
