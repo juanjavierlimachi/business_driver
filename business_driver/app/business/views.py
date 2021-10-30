@@ -76,8 +76,11 @@ class SiteWeb(DetailView):
             request.session['compra']#creo una session para los pedidos
         except:
             request.session['compra'] = []
-        dato_negocio = Negocio.objects.get(slug = kwargs['slug'])
         
+        try:
+            dato_negocio = Negocio.objects.get(slug = kwargs['slug'])
+        except Negocio.DoesNotExist:
+            return HttpResponse("<h2>Lo sentimos, no podemos encontrar este sítio web  <a href='/'> Regresar</a></h2>")
         if dato_negocio.user.id == request.user.id:
             self.es_propietario = True
         contex = {

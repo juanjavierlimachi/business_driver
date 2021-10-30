@@ -1,7 +1,7 @@
 .toast{
     position: fixed;
     left: 1.5%;
-    top: 60px;
+    top: 80px;
     margin-bottom: 350px;
 }
 .toast .alert-success{

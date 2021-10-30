@@ -164,7 +164,7 @@
                 <a class="nav-link dropdown-toggle" href="#carrito" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  Pedido(s): <i class="fa fa-cart"></i><span class="" id="compras_id">{{total_compra}}</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="max-height: 600px; overflow-y: scroll; ">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="max-height: 600px; overflow-y: scroll; overflow-x: scroll;">
                   <div id="datas">
                     {% for data in datos %}
                       <a class="dropdown-item" href="#productos">{{data.nombre|title}} Cant: {{data.cantidad}} Precio Uni: {{data.precio_uni}} Total: {{data.total}}</a>
@@ -213,7 +213,7 @@
   </header>
     <div class="position-relative overflow-hidden p-md-5 m-md-3 text-center bg-light imgfondo">
       <div class="col-md-18 p-lg-18 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">{{object.nombre_negocio|title}}</h1>
+        <h1 class="display-4 font-weight-normal text_personalizado">{{object.nombre_negocio|title}}</h1>
         <p class="lead font-weight-normal">{{object.descripcion}}</p>
         
         {% if es_propietario %}
@@ -313,7 +313,7 @@
         </div>
       </div>
     </div>
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="border-radius: 10px;">
       <div class="alert alert-success" style="background-color:#28a745; color: white;"></div>
      
     </div>
