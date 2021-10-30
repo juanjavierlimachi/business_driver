@@ -122,9 +122,9 @@
     <div class="col-md-18 p-lg-18 mx-auto my-5">
         
         {% if request.user.is_authenticated %}
-        <h1 class="display-4 font-weight-normal">Bienvenido: {{request.user.first_name|title}}</h1>
+        <h1 class="display-4 font-weight-normal text_personalizado">Bienvenido: {{request.user.first_name|title}}</h1>
         {% else %}
-        <h1 class="display-4 font-weight-normal">Tiendas Online</h1>
+        <h1 class="display-4 font-weight-normal text_personalizado">Tiendas Online</h1>
         {% endif %}
           
         
@@ -234,16 +234,16 @@
                   Dir. Av. Panamericana<br>
                   Teléfonos: 79436914<br>
                   Cochabamba - Bolivia<br>
-                  E-mail: <a href="mailto:codemar.potosi@gmail.com">codemar.potosi@gmail.com</a>
+                  E-mail: <a href="mailto:pedidosweb.bo@gmail.com">pedidosweb.bo@gmail.com</a>
                   </h6>
               </div>
       
               <div class="col-xs-12 col-md-6 text-right">
                   <h6 class="text-muted lead">ENCUENTRANOS EN</h6>
                   <div class="redes-footer">
-                    <a href="https://www.facebook.com/" target="_blank"><img src="imagenes/facebook-2.png"></a>
-                    <a href="https://twitter.com/" target="_blank"><img src="imagenes/twitter-2.png"></a>
-                    <a href="https://www.youtube.com/" target="_blank"><img src="imagenes/youtube-2.png"></a>
+                    <a href="https://www.facebook.com/CareSoftInnovaSRL" target="_blank"><img style="width: 30px; height: 30px; border-radius:10px;" src="{% static 'img/facebook_icon.png' %}"></a>
+                    <a href="https://api.whatsapp.com/send?phone=59179436914" target="_blank"><img style="width: 30px; height: 30px; border-radius:10px;" src="{% static 'img/whatsapp_icon.jpg' %}"></a>
+                    <a href="mailto:pedidosweb.bo@gmail.com"><img style="width: 30px; height: 30px; border-radius:10px;" src="{% static 'img/email_icon.png' %}"></a>
                     <br>
                     <p class="text-muted small">Sitio web creado por "CodeMar Potosí".</p>
                   </div>

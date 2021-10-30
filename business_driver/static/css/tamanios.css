@@ -22,9 +22,20 @@
       /*cuando la pantalla tengo un maximo de*/
       @media (max-width: 400px){
         .header .navbar .navbar-brand{
-          font-size: 15px;
+          font-size: 14px;
+        }
+        .position-relative .col-md-18 .text_personalizado{
+          font-size: 25px;
+          margin-top: 100px;
+          font-family: monospace;
         }
       }
+      @media (min-width: 576px){
+        .card-deck .card{
+          flex: none;
+        }
+      }
+      
  /*  cuando la pantalla sea mayor de 576px  */ 
       @media (min-width: 576px){
         .card-deck{ 
